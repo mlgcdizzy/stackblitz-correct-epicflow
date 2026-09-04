@@ -86,6 +86,11 @@ export async function POST(req: NextRequest) {
             : res.status === 400
               ? 'Jira rejected the JQL query — check the project key is correct and your account can see it.'
               : '';
+              console.log('JIRA URL:', url);
+2
+console.log('JIRA STATUS:', res.status);
+3
+console.log('JIRA RESPONSE:', text);
         return NextResponse.json({ error: `Jira returned ${res.status}. ${hint}`, detail: text.slice(0, 500) }, { status: 502 });
       }
 
