@@ -80,16 +80,15 @@ export async function POST(req: NextRequest) {
 
       if (!res.ok) {
         const text = await res.text().catch(() => '');
-        const hint =
-          res.status === 401
-            ? 'Check the email and API token — Jira Cloud API tokens are created at id.atlassian.com/manage-profile/security/api-tokens.'
-            : res.status === 400
-              ? 'Jira rejected the JQL query — check the project key is correct and your account can see it.'
-              : '';
-              console.log('JIRA URL:', url);
-              console.log('JIRA STATUS:', res.status);
-              console.log('JIRA RESPONSE:', text);
-        return NextResponse.json({ error: `Jira returned ${res.status}. ${hint}`, detail: text.slice(0, 500) }, { status: 502 });
+      
+        return NextResponse.json(
+          {
+            url,
+            status: res.status,
+            detail: text
+          },
+          { status: 502 }
+        );
       }
 
       const json = await res.json();
