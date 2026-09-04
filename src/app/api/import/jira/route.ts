@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
   try {
     while (issues.length < maxIssues) {
       const url =
-        `${cleanBaseUrl}/rest/api/3/search?jql=${encodeURIComponent(effectiveJql)}` +
+        `${cleanBaseUrl}/rest/api/3/search/jql?jql=${encodeURIComponent(effectiveJql)}` +
         `&startAt=${startAt}&maxResults=${pageSize}` +
         `&fields=summary,description,status,assignee,priority,labels,created,project`;
 
